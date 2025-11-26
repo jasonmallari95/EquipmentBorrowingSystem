@@ -1,0 +1,120 @@
+library= []
+transactions=[]
+
+
+print("𝐖𝐄𝐋𝐂𝐎𝐌𝐄 𝐓𝐎 𝐋𝐈𝐁𝐑𝐀𝐑𝐘 𝐌𝐀𝐍𝐀𝐆𝐄𝐌𝐄𝐍𝐓 𝐒𝐘𝐒𝐓𝐄𝐌") 
+while True:
+    print("1. Add items")
+    print("2. Add transaction")
+    print("3. Check Status")
+    print("4. Exit")
+    choose = input("Enter number: ")
+    
+    if choose == "1":
+        while True:
+            equipment = input("Add a equipment: ")
+            print("Enter (done) if all equipment added") 
+            
+            if equipment == "":
+                print("blank")
+                continue
+                
+            if equipment== "done":
+                print("EQUIPMENT ADDED!!!")
+                break
+            library.append(equipment)
+        print("=====================================")      
+        for i, items in enumerate(library, start=1):
+            print(f"{i}. {items}")
+        print("=====================================")
+        
+    if  choose  == "2":
+        if not library:
+            print("=====================================")
+            print("𝐍𝐎 𝐀𝐕𝐀𝐈𝐋𝐀𝐁𝐋𝐄 𝐈𝐓𝐄𝐌𝐒")
+            print("=====================================")
+            continue
+            
+        while True:
+            print("=====================================") 
+            print("𝐀𝐕𝐀𝐈𝐋𝐀𝐁𝐋𝐄 𝐈𝐓𝐄𝐌𝐒")
+            for i, items in enumerate(library, start=1):
+                print(f"{i}. {items}")
+            print("=====================================") 
+            borrower=input ("Name of the borrower:")
+            id_number=input ("Enter the id_number: ")
+            
+            borrowed_items = []
+
+            
+            first_item = input("Name of the borrowed items: ")
+            borrowed_items.append(first_item)
+
+            
+            while True:
+                add_epuipment = input("do you want to add more item?(yes or no): ")
+                if add_epuipment == "yes":
+                    next_item = input("borrowed items: ")
+                    borrowed_items.append(next_item)
+                elif add_epuipment == "no":
+                    break
+                
+            Quantity= input("enter the quantity: ")
+            date_and_time_borrowed=input ("Date and time borrowed: ")
+            returned_date= input("Date and time will be returned: ")
+            
+            transactions.append({
+                "borrower": borrower,
+                "id_num": id_number,
+                "borrowed_items": borrowed_items,
+                "date_and_time": date_and_time_borrowed,
+                "quantity":  Quantity,
+                "returned_date":  returned_date,   
+                "status": "Not Returned"           
+            })
+            
+            verification = input("do you want to add more? (YES or NO): ").upper()
+            if verification == "YES":
+                continue
+            elif verification == "NO":
+                break
+            
+    if choose == "3":
+        if not transactions:
+            print("-------------------------") 
+            print("𝐍𝐨 𝐭𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧𝐬 𝐟𝐨𝐮𝐧𝐝")
+            print("-------------------------") 
+            continue
+
+        print("========== 𝐓𝐑𝐀𝐍𝐒𝐀𝐂𝐓𝐈𝐎𝐍𝐒 ==========")
+        for i, items in enumerate(transactions, start=1):
+            print(f"{i}. Name: {items['borrower']} | ID: {items['id_num']} | "
+                  f"Item: {items['borrowed_items']} | Qty: {items['quantity']} | "
+                  f"Borrowed: {items['date_and_time']} | Return: {items['returned_date']} | "    
+                  f"Status: {items['status']}")                                                 
+        print("==================================")
+
+        try:
+            selected = int(input("Enter the number of the transaction to update (0 to cancel): "))
+            if selected == 0:
+                continue
+
+            if 1 <= selected <= len(transactions):
+                trans = transactions[selected - 1]
+                print(f"Selected: {trans['borrower']} - {trans['borrowed_items']}")
+                status = input("Was the item returned? (YES or NO): ").upper()
+
+                if status == "YES":
+                    trans["status"] = "Returned"
+                else:
+                    trans["status"] = "Not Returned"
+
+                print("Status updated successfully.")
+            else:
+                print("Invalid transaction number.")
+        except ValueError:
+            print("Please enter a valid number.")   
+            
+    if choose == "4":
+        print("𝐓𝐇𝐀𝐍𝐊𝐘𝐎𝐔 𝐅𝐎𝐑 𝐔𝐒𝐈𝐍𝐆 𝐎𝐔𝐑 𝐒𝐘𝐒𝐓𝐄𝐌")
+        exit()
